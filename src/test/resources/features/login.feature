@@ -6,9 +6,10 @@ Feature: Users should be able to login
 
 
   Scenario Outline: Login with parameterization
-    Given the user logged in with "positive" datatype as "<driver>"
+    Given the user logged in with "positive" datatype as "<user>"
     Then user is on "Dashboard" page
     Examples:
+    |user|
     |driver|
-    |salesManager|
-    |storeManager|
+    |salesmanager|
+    |storemanager|

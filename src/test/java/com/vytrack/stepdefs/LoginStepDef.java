@@ -22,7 +22,10 @@ public class LoginStepDef {
     }
     @Then("user is on {string} page")
     public void user_is_on_page(String page) {
+      //  BrowserUtil.TitleVerification(page);
+        System.out.println(Driver.getDriver().getTitle());
 
+        Driver.closeDriver();
     }
 
 }
