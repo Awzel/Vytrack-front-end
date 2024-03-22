@@ -3,7 +3,7 @@ Feature: Users should be able to login
          Also user able to logout AF
 
   Background: User is already in the login page
-    Given the user is on the login page
+    Given user is on "Login" page
 
 
   Scenario Outline: Login with parameterization
@@ -16,11 +16,11 @@ Feature: Users should be able to login
     |storemanager|
 
 
-Scenario Outline: User able to Logout AF
+Scenario Outline: User able to Logout
   Given the user logged in with "positive" datatype as "<user>"
   Then user is on "Dashboard" page
-  Then user  click on  "logout" button under user's name is displayed in the top right corner AF
-  And  user back to "login" page AF
+  Then user  click on  "Logout" button
+  And  user is on "Login" page
   Examples:
   |user|
   |driver|

@@ -1,14 +1,14 @@
 package com.vytrack.pages;
 
+import static com.vytrack.utils.BrowserUtil.*;
+
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.DataUtil;
 import com.vytrack.utils.Driver;
-import com.vytrack.utils.JsonReader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import static com.vytrack.utils.BrowserUtil.*;
 import static com.vytrack.utils.JsonReader.*;
 
 
@@ -30,9 +30,9 @@ public class LoginPage {
 
 
     @FindBy(xpath = "//li[@id='user-menu']/a")
-    public WebElement LogoutDropdown;
+    public WebElement accountButton;
 
-    @FindBy(xpath ="//ul[@role='menu']/li/a)[3] ")
+    @FindBy(xpath ="//ul[@role='menu']/li[4]")
     public WebElement logoutButton;
 
 
@@ -51,12 +51,19 @@ public class LoginPage {
 
     public void fillUpInput(String inputName,String key){
         if (inputName.equalsIgnoreCase("username")){
-            BrowserUtil.send_key(userName,key);
+            send_key(userName,key);
         }else if (inputName.equalsIgnoreCase("password")){
             send_key(password,key);
         } else {
             throw new RuntimeException("Unexpected input(s)");
         }
+    }
+
+    public void logOut(){
+        BrowserUtil.click(accountButton);
+        BrowserUtil.click(logoutButton);
+
+
     }
 
 }
