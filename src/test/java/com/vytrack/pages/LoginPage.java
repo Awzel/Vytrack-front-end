@@ -2,6 +2,7 @@ package com.vytrack.pages;
 
 import static com.vytrack.utils.BrowserUtil.*;
 
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.DataUtil;
 import com.vytrack.utils.Driver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +27,15 @@ public class LoginPage {
     @FindBy(name = "_submit")
     public WebElement submitBtn;
 
+
+
+    @FindBy(xpath = "//li[@id='user-menu']/a")
+    public WebElement accountButton;
+
+    @FindBy(xpath ="//ul[@role='menu']/li[4]")
+    public WebElement logoutButton;
+
+
     /**
      *
      * @param dataType positive, negative
@@ -47,6 +57,13 @@ public class LoginPage {
         } else {
             throw new RuntimeException("Unexpected input(s)");
         }
+    }
+
+    public void logOut(){
+        BrowserUtil.click(accountButton);
+        BrowserUtil.click(logoutButton);
+
+
     }
 
 }

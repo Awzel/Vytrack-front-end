@@ -17,4 +17,9 @@ public class LoginStepDef {
     public void user_is_on_page(String page) {
             TitleVerification(page);
         }
+
+    @Then("user  click on  {string} button")
+    public void userClickOnButton(String arg0) {
+        loginPage.logOut();
+    }
 }
