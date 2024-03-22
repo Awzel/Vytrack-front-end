@@ -21,7 +21,7 @@ public class LoginStepDef {
         loginPage.login(dataType,userType);
     }
     @Then("user is on {string} page")
-    public void user_is_on_page(String pageTitle) {
+    public void user_is_on_page(String page) {
 
     }
 
