@@ -49,4 +49,8 @@ public class DataUtil {
 
         return null;
     }
+
+    public static String getPassword(String pass){
+        return decrypt(pass);
+    }
 }

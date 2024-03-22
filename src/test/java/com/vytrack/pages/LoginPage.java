@@ -2,6 +2,8 @@ package com.vytrack.pages;
 
 import static com.vytrack.utils.BrowserUtil.*;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.DataUtil;
 import com.vytrack.utils.Driver;
@@ -43,7 +45,11 @@ public class LoginPage {
      */
     public void login(String dataType,String as){
         String username = getSingleString(as,"username",dataType);
-        String password = DataUtil.decrypt(getSingleString(as,"password",dataType));
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"username: "+username);
+
+        String password = DataUtil.getPassword(getSingleString(as,"password",dataType));
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"password: "+password);
+
         fillUpInput("username",username);
         fillUpInput("password",password);
         click(submitBtn);

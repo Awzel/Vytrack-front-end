@@ -2,13 +2,13 @@ package com.vytrack.stepdefs;
 
 import static com.vytrack.utils.Driver.*;
 
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.aventstack.extentreports.service.ExtentService;
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.cucumber.java.*;
 
 import java.time.Duration;
 
@@ -16,27 +16,28 @@ import static com.vytrack.utils.JsonReader.getSingleString;
 
 public class Hooks {
     @Before
-    public void setupScenario(Scenario scenario){
+    public void setupScenario(){
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         getDriver().manage().window().maximize();
         getDriver().get(getSingleString("url"));
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"URL successfully launched");
     }
 
     @After
-    public void tearDownScenario(Scenario scenario) {
-//        if (scenario.isFailed()) {
-//            // take screenshot using selenium
-//            byte[] screenshot = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-//            // attach to report
-//            scenario.attach(screenshot, "image/png", scenario.getName());
-//        }
+    public void tearDownScenario() {
         Driver.closeDriver();
     }
 
     @AfterStep
-    public static void takeScreenshot(Scenario scenario){
+    public static void after_step(Scenario scenario){
         //attach screenshot
-        final byte[] screenshot = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshot, "image/png", scenario.getName());
+        if (scenario.isFailed()){
+            ExtentCucumberAdapter.getCurrentStep().log(Status.FAIL,MediaEntityBuilder.createScreenCaptureFromBase64String(BrowserUtil.takeScreenshotAsBase64()).build());
+        }
+    }
+
+    @AfterAll
+    public static void after_all(){
+        ExtentService.getInstance().setSystemInfo("Device",System.getProperty("os.name"));
     }
 }
