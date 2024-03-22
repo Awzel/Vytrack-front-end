@@ -33,10 +33,8 @@ public class LoginPage {
      * @param as driver, storemanager, salesmanager
      */
     public void login(String dataType,String as){
-        //String username = getSingleString(as,"username",dataType);
-        String username = "user3";
-        //String password = DataUtil.decrypt(getSingleString(as,"password",dataType));
-        String password = "UserUser123";
+        String username = getSingleString(as,"username",dataType);
+        String password = DataUtil.decrypt(getSingleString(as,"password",dataType));
         fillUpInput("username",username);
         fillUpInput("password",password);
         click(submitBtn);

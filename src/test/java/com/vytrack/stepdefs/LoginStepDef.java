@@ -22,7 +22,7 @@ public class LoginStepDef {
     }
     @Then("user is on {string} page")
     public void user_is_on_page(String page) {
-
+        Driver.closeDriver();
     }
 
 }
