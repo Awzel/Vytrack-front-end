@@ -27,3 +27,9 @@ Feature: Users should be able to login
     |storemanager|
     |salesmanager|
 
+  @aut_halzat @remember_me
+  Scenario: remember me functionality on login page
+    When user click on remember me button
+    Then then the checkbox should be checked
+
+

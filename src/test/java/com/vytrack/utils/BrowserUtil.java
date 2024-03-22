@@ -53,6 +53,10 @@ public class BrowserUtil {
         return  ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 
+    public static boolean isChecked(WebElement webElement){
+        return webElement.isSelected();
+    }
+
     public static String takeScreenshotAsBase64(){
         return  ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BASE64);
     }

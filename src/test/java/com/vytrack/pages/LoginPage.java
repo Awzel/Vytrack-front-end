@@ -37,6 +37,9 @@ public class LoginPage {
     @FindBy(xpath ="//ul[@role='menu']/li[4]")
     public WebElement logoutButton;
 
+    @FindBy(xpath = "//input[@id='remember_me']")
+    public WebElement remember_me_btn;
+
 
     /**
      *
@@ -68,8 +71,14 @@ public class LoginPage {
     public void logOut(){
         BrowserUtil.click(accountButton);
         BrowserUtil.click(logoutButton);
+    }
 
+    public void rememberMeClick(){
+        click(remember_me_btn);
+    }
 
+    public boolean rememberMeChecked(){
+        return BrowserUtil.isChecked(remember_me_btn);
     }
 
 }
