@@ -45,7 +45,14 @@ public class JsonReader {
         return values;
     }
 
+    //TODO needs more clarification
     public static String getSingleString(String user, String key, String dataType) {
+        try {
+            getValuesFromJsonArray(user, key, dataType).get(0);
+        }catch (Exception e) {
+            System.out.println(user);
+            e.printStackTrace();
+        }
         return getValuesFromJsonArray(user, key, dataType).get(0);
     }
 }

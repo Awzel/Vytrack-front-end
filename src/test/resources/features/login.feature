@@ -2,7 +2,7 @@
 Feature: Users should be able to login
 
   Background: User is already in the login page
-    Given the user is on the login page
+    Given user is on "Login" page
 
 
   Scenario Outline: Login with parameterization
