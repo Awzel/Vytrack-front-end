@@ -27,6 +27,15 @@ public class LoginPage {
     @FindBy(name = "_submit")
     public WebElement submitBtn;
 
+
+
+    @FindBy(xpath = "//li[@id='user-menu']/a")
+    public WebElement LogoutDropdown;
+
+    @FindBy(xpath ="//ul[@role='menu']/li/a)[3] ")
+    public WebElement logoutButton;
+
+
     /**
      *
      * @param dataType positive, negative

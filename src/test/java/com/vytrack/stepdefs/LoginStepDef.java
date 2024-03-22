@@ -23,9 +23,19 @@ public class LoginStepDef {
     @Then("user is on {string} page")
     public void user_is_on_page(String page) {
       //  BrowserUtil.TitleVerification(page);
-        System.out.println(Driver.getDriver().getTitle());
+        System.out.println(Driver.getDriver().getTitle());}
 
-        Driver.closeDriver();
+        @Then("user  click on  {string} button under user's name is displayed in the top right corner AF")
+        public void user_click_on_button_under_user_s_name_is_displayed_in_the_top_right_corner_af(String string) {
+            BrowserUtil.click(loginPage.LogoutDropdown);
+        }
+        @Then("user back to {string} page AF")
+        public void user_back_to_page_af(String string) {
+            BrowserUtil.click(loginPage.logoutButton);
+
+        }
+
+      //  Driver.closeDriver();
     }
 
-}
+
