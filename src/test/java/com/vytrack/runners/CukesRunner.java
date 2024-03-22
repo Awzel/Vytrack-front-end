@@ -12,9 +12,9 @@ import org.junit.runner.RunWith;
                 "me.jvt.cucumber.report.PrettyReports:target/cucumber"
         },
         features = "src/test/resources/features",
-        glue = "com/vytrack/step_definition",
+        glue = "com/vytrack/stepdefs",
         dryRun = false,
-        tags = "",
+        tags = "@wip",
         publish = true //generating a report with public link
 )
 

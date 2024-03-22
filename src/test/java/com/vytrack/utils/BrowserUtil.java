@@ -1,5 +1,6 @@
 package com.vytrack.utils;
 
+import org.junit.Assert;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
@@ -32,7 +33,24 @@ public class BrowserUtil {
 
     }
 
+    public static void titleTobe(String url){
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.titleIs(url));
+    }
 
+    public static void TitleVerification(String expected){
+        titleTobe(expected);
+        expected = getTitle();
+        Assert.assertEquals(expected,getTitle());
+    }
+
+    public static String getTitle(){
+        return Driver.getDriver().getTitle();
+    }
+
+    public static void send_key(WebElement element,String key){
+        element.sendKeys(key);
+    }
 
 
 }
