@@ -40,7 +40,6 @@ public class BrowserUtil {
 
     public static void TitleVerification(String expected){
         titleTobe(expected);
-        expected = getTitle();
         Assert.assertEquals(expected,getTitle());
     }
 
