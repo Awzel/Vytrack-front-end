@@ -1,8 +1,10 @@
 package com.vytrack.utils;
 
-import org.codehaus.plexus.util.Base64;
+import net.bytebuddy.implementation.bytecode.Throw;
+import org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
@@ -41,10 +43,14 @@ public class DataUtil {
             byte[] original = cipher.doFinal(Base64.decodeBase64(encrypted.getBytes()));
 
             return new String(original);
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         return null;
+    }
+
+    public static String getPassword(String pass){
+        return decrypt(pass);
     }
 }

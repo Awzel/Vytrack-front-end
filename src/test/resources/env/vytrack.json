@@ -13,13 +13,13 @@
   },
   "negative": {
     "driver": [
-      {"username": "userblas","password": "asdfe+/MWwjQ=="}
+      {"username": "userblas","password": "nMBxQj0sDTw1jXzy7FFvJA=="}
     ],
     "storemanager": [
-      {"username": "manager","password": "tuaq2+/MWwjQ=="}
+      {"username": "manager","password": "eeaay3haYy2nDJVItO5dbw=="}
     ],
     "salesmanager": [
-      {"username": "sanejasd","password": "teuw3+/MWwjQ=="}
+      {"username": "sanejasd","password": "eeaay3haYy2nDJVItO5dbw=="}
     ]
   }
 }

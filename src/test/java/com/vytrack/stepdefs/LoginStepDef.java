@@ -5,6 +5,8 @@ import static com.vytrack.utils.BrowserUtil.*;
 import com.vytrack.utils.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 public class LoginStepDef {
 
@@ -21,5 +23,19 @@ public class LoginStepDef {
     @Then("user  click on  {string} button")
     public void userClickOnButton(String arg0) {
         loginPage.logOut();
+    }
+
+    @Then("then the checkbox should be checked")
+    public void thenTheCheckboxShouldBeChecked() {
+        Assert.assertTrue(loginPage.rememberMeChecked());
+    }
+
+    @When("user click on remember me button")
+    public void userClickOnRememberMeButton() {
+        loginPage.rememberMeClick();
+    }
+    @Then("users  should get error message")
+    public void usersShouldGetErrorMessage() {
+        loginPage.errorMessageDisplayed();
     }
 }

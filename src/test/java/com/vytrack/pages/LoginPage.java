@@ -2,9 +2,12 @@ package com.vytrack.pages;
 
 import static com.vytrack.utils.BrowserUtil.*;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.DataUtil;
 import com.vytrack.utils.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -35,6 +38,12 @@ public class LoginPage {
     @FindBy(xpath ="//ul[@role='menu']/li[4]")
     public WebElement logoutButton;
 
+    @FindBy(xpath = "//input[@id='remember_me']")
+    public WebElement remember_me_btn;
+
+    @FindBy(xpath = "//div[.='Invalid user name or password.']")
+    public WebElement errorMessage;
+
 
     /**
      *
@@ -43,7 +52,11 @@ public class LoginPage {
      */
     public void login(String dataType,String as){
         String username = getSingleString(as,"username",dataType);
-        String password = DataUtil.decrypt(getSingleString(as,"password",dataType));
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"username: "+username);
+
+        String password = DataUtil.getPassword(getSingleString(as,"password",dataType));
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"password: "+password);
+
         fillUpInput("username",username);
         fillUpInput("password",password);
         click(submitBtn);
@@ -62,8 +75,18 @@ public class LoginPage {
     public void logOut(){
         BrowserUtil.click(accountButton);
         BrowserUtil.click(logoutButton);
+    }
 
+    public void rememberMeClick(){
+        click(remember_me_btn);
+    }
 
+    public boolean rememberMeChecked(){
+        return BrowserUtil.isChecked(remember_me_btn);
+    }
+
+    public boolean errorMessageDisplayed(){
+        return errorMessage.isDisplayed();
     }
 
 }

@@ -1,10 +1,8 @@
 package com.vytrack.utils;
 
+import io.cucumber.java.Scenario;
 import org.junit.Assert;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -49,6 +47,18 @@ public class BrowserUtil {
 
     public static void send_key(WebElement element,String key){
         element.sendKeys(key);
+    }
+
+    public static byte[] takeScreenshotAsBytes(){
+        return  ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+    }
+
+    public static boolean isChecked(WebElement webElement){
+        return webElement.isSelected();
+    }
+
+    public static String takeScreenshotAsBase64(){
+        return  ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BASE64);
     }
 
 
