@@ -40,6 +40,18 @@ public class LoginPage {
     @FindBy(xpath = "//input[@id='remember_me']")
     public WebElement remember_me_btn;
 
+    @FindBy(xpath = "//a[.='Forgot your password?']")
+    public WebElement resetPasswordLink;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    public WebElement requestButton;
+
+    @FindBy(xpath = "//div[@class='alert alert-warn']")
+    public WebElement forgotPasswordSuccessMsg;
+
+    @FindBy(xpath = "//div[@class='alert alert-error']")
+    public WebElement forgotPasswordFailedMsg;
+
 
     /**
      *
