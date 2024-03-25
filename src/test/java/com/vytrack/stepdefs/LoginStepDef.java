@@ -5,6 +5,7 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
+import com.vytrack.utils.JsonReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -45,9 +46,9 @@ public class LoginStepDef {
     @When("I enter {string} Username or Email")
     public void i_enter_username_or_email(String dataType) {
         if (dataType.equalsIgnoreCase("positive")) {
-            loginPage.userName.sendKeys("user180");
+            loginPage.userName.sendKeys(JsonReader.getSingleString("driver","username","positive"));
         } else if (dataType.equalsIgnoreCase("negative")) {
-            loginPage.userName.sendKeys("abcdefg");
+            loginPage.userName.sendKeys(JsonReader.getSingleString("driver","username","negative"));
         }
         loginPage.requestButton.click();
     }
