@@ -36,6 +36,6 @@ public class LoginStepDef {
     }
     @Then("users  should get error message")
     public void usersShouldGetErrorMessage() {
-        loginPage.errorMessageDisplayed();
+       Assert.assertTrue(loginPage.errorMessageDisplayed());
     }
 }
