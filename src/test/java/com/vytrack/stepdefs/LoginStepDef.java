@@ -34,4 +34,8 @@ public class LoginStepDef {
     public void userClickOnRememberMeButton() {
         loginPage.rememberMeClick();
     }
+    @Then("users  should get error message")
+    public void usersShouldGetErrorMessage() {
+       Assert.assertTrue(loginPage.errorMessageDisplayed());
+    }
 }

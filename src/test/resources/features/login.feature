@@ -33,3 +33,12 @@ Feature: Users should be able to login
     Then then the checkbox should be checked
 
 
+  @login @aut_flora
+  Scenario Outline: unable Login with parameterization
+    Given the user logged in with "negative" datatype as "<user>"
+    Then users  should get error message
+    Examples:
+      |user|
+      |driver|
+      |salesmanager|
+      |storemanager|
