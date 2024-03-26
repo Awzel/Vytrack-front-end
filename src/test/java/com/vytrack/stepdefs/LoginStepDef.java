@@ -45,13 +45,13 @@ public class LoginStepDef {
        Assert.assertTrue(loginPage.errorMessageDisplayed());
     }
 
-    @When("I click on 'Forgot your password?' button")
-    public void i_click_on_forgot_your_password_button() {
+    @When("user click on 'Forgot your password?' button")
+    public void user_click_on_forgot_your_password_button() {
         BrowserUtil.click(forgotPasswordPage.resetPasswordLink);
     }
 
-    @When("I enter {string} Username or Email")
-    public void i_enter_username_or_email(String dataType) {
+    @When("user enter {string} Username or Email")
+    public void user_enter_username_or_email(String dataType) {
         if (dataType.equalsIgnoreCase("positive")) {
             forgotPasswordPage.usernameOrEmailInput.sendKeys(JsonReader.getSingleString("driver","username","positive"));
         } else if (dataType.equalsIgnoreCase("negative")) {
@@ -61,14 +61,14 @@ public class LoginStepDef {
     }
 
 
-    @Then("I should get success message")
-    public void i_should_get_success_message() {
-        forgotPasswordPage.forgotPasswordSuccessMsg.isDisplayed();
+    @Then("user should get success message")
+    public void user_should_get_success_message() {
+        Assert.assertTrue(forgotPasswordPage.forgotPasswordSuccessMsg.isDisplayed());
     }
 
-    @Then("I should get error message")
-    public void i_should_get_error_message() {
-        forgotPasswordPage.forgotPasswordFailedMsg.isDisplayed();
+    @Then("user should get error message")
+    public void user_should_get_error_message() {
+        Assert.assertTrue(forgotPasswordPage.forgotPasswordFailedMsg.isDisplayed());
     }
 
 }

@@ -34,16 +34,16 @@ Feature: Users should be able to login
 
   @aut_awzal @forgot_password
   Scenario: "Forgot your password" functionality on login page (positive)
-    When I click on 'Forgot your password?' button
-    And I enter "positive" Username or Email
-    Then I should get success message
+    When user click on 'Forgot your password?' button
+    And user enter "positive" Username or Email
+    Then user should get success message
 
 
   @aut_awzal @forgot_password
   Scenario: "Forgot your password" functionality on login page (Negative)
-    When I click on 'Forgot your password?' button
-    And I enter "negative" Username or Email
-    Then I should get error message
+    When user click on 'Forgot your password?' button
+    And user enter "negative" Username or Email
+    Then user should get error message
 
   @login @aut_flora
   Scenario Outline: unable Login with parameterization
