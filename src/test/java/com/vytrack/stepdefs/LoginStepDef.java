@@ -1,16 +1,22 @@
 package com.vytrack.stepdefs;
 
+import com.vytrack.pages.ForgotPasswordPage;
 import com.vytrack.pages.LoginPage;
 import static com.vytrack.utils.BrowserUtil.*;
+
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
+import com.vytrack.utils.JsonReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.velocity.runtime.directive.contrib.For;
 import org.junit.Assert;
 
 public class LoginStepDef {
 
     LoginPage loginPage = new LoginPage();
+    ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
     @Given("the user logged in with {string} datatype as {string}")
     public void the_user_logged_in_with_datatype_as(String dataType, String userType) {
         loginPage.login(dataType,userType);
@@ -38,4 +44,31 @@ public class LoginStepDef {
     public void usersShouldGetErrorMessage() {
        Assert.assertTrue(loginPage.errorMessageDisplayed());
     }
+
+    @When("user click on 'Forgot your password?' button")
+    public void user_click_on_forgot_your_password_button() {
+        BrowserUtil.click(forgotPasswordPage.resetPasswordLink);
+    }
+
+    @When("user enter {string} Username or Email")
+    public void user_enter_username_or_email(String dataType) {
+        if (dataType.equalsIgnoreCase("positive")) {
+            forgotPasswordPage.usernameOrEmailInput.sendKeys(JsonReader.getSingleString("driver","username","positive"));
+        } else if (dataType.equalsIgnoreCase("negative")) {
+            forgotPasswordPage.usernameOrEmailInput.sendKeys(JsonReader.getSingleString("driver","username","negative"));
+        }
+        BrowserUtil.click(forgotPasswordPage.requestButton);
+    }
+
+
+    @Then("user should get success message")
+    public void user_should_get_success_message() {
+        Assert.assertTrue(forgotPasswordPage.forgotPasswordSuccessMsg.isDisplayed());
+    }
+
+    @Then("user should get error message")
+    public void user_should_get_error_message() {
+        Assert.assertTrue(forgotPasswordPage.forgotPasswordFailedMsg.isDisplayed());
+    }
+
 }

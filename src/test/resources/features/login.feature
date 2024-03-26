@@ -32,6 +32,18 @@ Feature: Users should be able to login
     When user click on remember me button
     Then then the checkbox should be checked
 
+  @aut_awzal @forgot_password
+  Scenario: "Forgot your password" functionality on login page (positive)
+    When user click on 'Forgot your password?' button
+    And user enter "positive" Username or Email
+    Then user should get success message
+
+
+  @aut_awzal @forgot_password
+  Scenario: "Forgot your password" functionality on login page (Negative)
+    When user click on 'Forgot your password?' button
+    And user enter "negative" Username or Email
+    Then user should get error message
 
   @login @aut_flora
   Scenario Outline: unable Login with parameterization
