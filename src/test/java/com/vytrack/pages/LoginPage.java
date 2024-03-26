@@ -22,27 +22,29 @@ public class LoginPage {
     }
 
     @FindBy(id="prependedInput")
-    public WebElement userName;
+    protected WebElement userName;
 
     @FindBy(id="prependedInput2")
-    public WebElement password;
+    protected WebElement password;
 
     @FindBy(name = "_submit")
-    public WebElement submitBtn;
-
-
+    protected WebElement submitBtn;
 
     @FindBy(xpath = "//li[@id='user-menu']/a")
-    public WebElement accountButton;
+    protected WebElement accountButton;
 
     @FindBy(xpath ="//ul[@role='menu']/li[4]")
-    public WebElement logoutButton;
+    protected WebElement logoutButton;
 
     @FindBy(xpath = "//input[@id='remember_me']")
-    public WebElement remember_me_btn;
+    protected WebElement remember_me_btn;
 
     @FindBy(xpath = "//div[.='Invalid user name or password.']")
-    public WebElement errorMessage;
+    protected WebElement errorMessage;
+
+    @FindBy(xpath = "//a[.='Forgot your password?']")
+    protected WebElement resetPasswordLink;
+
 
 
     /**
@@ -87,6 +89,10 @@ public class LoginPage {
 
     public boolean errorMessageDisplayed(){
         return errorMessage.isDisplayed();
+    }
+
+    public void clickForgotPasswordLink(){
+        BrowserUtil.click(resetPasswordLink);
     }
 
 }
