@@ -44,3 +44,13 @@ Feature: Users should be able to login
     When I click on 'Forgot your password?' button
     And I enter "negative" Username or Email
     Then I should get error message
+
+  @login @aut_flora
+  Scenario Outline: unable Login with parameterization
+    Given the user logged in with "negative" datatype as "<user>"
+    Then users  should get error message
+    Examples:
+      |user|
+      |driver|
+      |salesmanager|
+      |storemanager|

@@ -7,6 +7,7 @@ import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.DataUtil;
 import com.vytrack.utils.Driver;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -39,6 +40,9 @@ public class LoginPage {
 
     @FindBy(xpath = "//input[@id='remember_me']")
     public WebElement remember_me_btn;
+
+    @FindBy(xpath = "//div[.='Invalid user name or password.']")
+    public WebElement errorMessage;
 
 
 
@@ -80,6 +84,10 @@ public class LoginPage {
 
     public boolean rememberMeChecked(){
         return BrowserUtil.isChecked(remember_me_btn);
+    }
+
+    public boolean errorMessageDisplayed(){
+        return errorMessage.isDisplayed();
     }
 
 }

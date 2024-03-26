@@ -40,6 +40,10 @@ public class LoginStepDef {
     public void userClickOnRememberMeButton() {
         loginPage.rememberMeClick();
     }
+    @Then("users  should get error message")
+    public void usersShouldGetErrorMessage() {
+       Assert.assertTrue(loginPage.errorMessageDisplayed());
+    }
 
     @When("I click on 'Forgot your password?' button")
     public void i_click_on_forgot_your_password_button() {
