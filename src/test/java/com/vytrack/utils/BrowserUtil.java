@@ -24,6 +24,7 @@ public class BrowserUtil {
     public static void click(WebElement element){
         try {
             WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(2));
+            waitUntilVisible(element);
             wait.until(ExpectedConditions.elementToBeClickable(element)).click();
         }catch (TimeoutException | ElementClickInterceptedException e){
             JavascriptExecutor executor = (JavascriptExecutor) Driver.getDriver();

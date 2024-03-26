@@ -9,23 +9,31 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 
 public class FleetStepDef {
-    VehiclesPage vehiclesPage = new VehiclesPage();
-    DashboardPage dashboardPage = new DashboardPage();
+    VehiclesPage vehiclesPage;
+    DashboardPage dashboardPage;
+    GlobalData globalData;
+
+    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GlobalData globalData) {
+        this.vehiclesPage = vehiclesPage;
+        this.dashboardPage = dashboardPage;
+        this.globalData = globalData;
+    }
+
     @When("the user clicks {string} on {string}")
     public void theUserClicksOn(String tab, String option) {
         dashboardPage.navigateTo(option,tab);
     }
 
-    @When("the user sets view per page to {string}")
-    public void theUserSetsViewPerPageTo(String pageNumber) {
+    @When("user sets view per page to {string}")
+    public void userSetsViewPerPageTo(String pageNumber) {
         vehiclesPage.setPage(pageNumber);
-        String actualPageNumber = vehiclesPage.globalData.getPageNum();
+        String actualPageNumber = globalData.getPageNum();
         Assert.assertEquals(pageNumber,actualPageNumber);
     }
 
-    @Then("the user should see correct number of vehicles")
-    public void theUserShouldSeeCorrectNumberOfVehicles() {
-        String expected = vehiclesPage.globalData.getPageNum();
+    @Then("user should see correct number of vehicles")
+    public void userShouldSeeCorrectNumberOfVehicles() {
+        String expected = globalData.getPageNum();
         String actual = vehiclesPage.displayedNumberOfItems(expected);
         Assert.assertEquals(expected,actual);
     }
