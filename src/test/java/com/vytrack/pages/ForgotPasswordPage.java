@@ -1,6 +1,8 @@
 package com.vytrack.pages;
 
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
+import com.vytrack.utils.JsonReader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,19 +14,30 @@ public class ForgotPasswordPage {
     }
 
     @FindBy(id="prependedInput")
-    public WebElement usernameOrEmailInput;
+    protected WebElement usernameOrEmailInput;
 
     @FindBy( xpath = "//button[@type='submit']")
-    public WebElement requestButton;
-
-    @FindBy(xpath = "//a[.='Forgot your password?']")
-    public WebElement resetPasswordLink;
-
+    protected WebElement requestButton;
 
     @FindBy(xpath = "//div[@class='alert alert-warn']")
-    public WebElement forgotPasswordSuccessMsg;
+    protected WebElement forgotPasswordSuccessMsg;
 
     @FindBy(xpath = "//div[@class='alert alert-error']")
-    public WebElement forgotPasswordFailedMsg;
+    protected WebElement forgotPasswordFailedMsg;
+
+    public void enterUsernameAndSubmit(String dataType){
+        String username = JsonReader.getSingleString("driver","username",dataType);
+        BrowserUtil.send_key(usernameOrEmailInput,username);
+        BrowserUtil.click(requestButton);
+    }
+
+    public boolean displayMessage(String type){
+        if(type.equals("success")){
+            return forgotPasswordSuccessMsg.isDisplayed();
+        } else if (type.equals("error")) {
+            return forgotPasswordFailedMsg.isDisplayed();
+        }
+        throw new RuntimeException("no such type. only success and error");
+    }
 
 }
