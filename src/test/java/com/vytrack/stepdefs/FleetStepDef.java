@@ -37,4 +37,10 @@ public class FleetStepDef {
         String actual = vehiclesPage.displayedNumberOfItems(expected);
         Assert.assertEquals(expected,actual);
     }
+
+    @Then("user cannot create cars")
+    public void user_cannot_create_cars() {
+        vehiclesPage.verifyCannotClickCreateCarBtn();
+    }
+
 }
