@@ -12,7 +12,7 @@ Feature: As a tuck driver I should be able to access Vehicle under fleet module
      Then user should see correct number of vehicles
 
 
-@aut_flora  @vehicles @flora
+@aut_flora  @vehicles
   Scenario: driver is able to resets all the pages
   Given the user clicks "Vehicles" on "Fleet"
   Then user is on "Vehicles" page

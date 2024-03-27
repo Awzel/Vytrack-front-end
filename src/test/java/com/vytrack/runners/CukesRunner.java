@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/vytrack/stepdefs",
         dryRun = false,
-        tags = "@flora",
+        tags = "@wip",
         publish = true //generating a report with public link
 )
 
