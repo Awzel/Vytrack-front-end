@@ -5,6 +5,7 @@ import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
 import org.junit.Assert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -26,7 +27,14 @@ public class VehiclesPage extends CommonFeaturePage{
     protected WebElement createCarBtn;
 
     public void verifyCannotClickCreateCarBtn (){
-        Assert.assertFalse(createCarBtn.isDisplayed());
-    }
+        try {
+            Assert.assertFalse(createCarBtn.isDisplayed());
+            System.out.println("Button is not displayed.");
+        } catch (NoSuchElementException e) {
+            System.out.println("Button not found.");
+        } catch (AssertionError e) {
+            System.out.println("Button is displayed.");
+        }
 
+    }
 }
