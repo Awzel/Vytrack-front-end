@@ -20,6 +20,10 @@ public abstract class CommonFeaturePage extends BasePage{
 
     @FindBy(xpath = "//tbody[@class='grid-body']/tr")
     protected List<WebElement> displayedItems;
+
+    @FindBy(xpath = "//a[@title='Reset']")
+     protected WebElement resetButton;
+
     GlobalData globalData;
 
     public CommonFeaturePage(GlobalData globalData) {
@@ -51,5 +55,9 @@ public abstract class CommonFeaturePage extends BasePage{
     public String displayedNumberOfItems(String expectedPageNumber){
         BrowserUtil.waitUntilTextTobe(expectedPageNumber,viewPerPageBtn);
        return displayedItems.size()+"";
+    }
+
+    public void resetButtonClick(){
+       click(resetButton);
     }
 }

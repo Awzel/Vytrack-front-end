@@ -4,6 +4,7 @@ import com.vytrack.pages.DashboardPage;
 import com.vytrack.pages.VehiclesPage;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.GlobalData;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -36,5 +37,10 @@ public class FleetStepDef {
         String expected = globalData.getPageNum();
         String actual = vehiclesPage.displayedNumberOfItems(expected);
         Assert.assertEquals(expected,actual);
+    }
+
+    @And("user able to click reset button")
+    public void userAbleToClickResetButton() {
+          vehiclesPage.resetButtonClick();
     }
 }
