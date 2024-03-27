@@ -23,18 +23,4 @@ public class VehiclesPage extends CommonFeaturePage{
         return Titles.VEHICLES.getValue();
     }
 
-    @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
-    protected WebElement createCarBtn;
-
-    public void verifyCannotClickCreateCarBtn (){
-        try {
-            Assert.assertFalse(createCarBtn.isDisplayed());
-            System.out.println("Button is not displayed.");
-        } catch (NoSuchElementException e) {
-            System.out.println("Button not found.");
-        } catch (AssertionError e) {
-            System.out.println("Button is displayed.");
-        }
-
-    }
 }
