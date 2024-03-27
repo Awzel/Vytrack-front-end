@@ -20,7 +20,11 @@ public abstract class CommonFeaturePage extends BasePage{
 
     @FindBy(xpath = "//tbody[@class='grid-body']/tr")
     protected List<WebElement> displayedItems;
-    public GlobalData globalData = new GlobalData();
+    GlobalData globalData;
+
+    public CommonFeaturePage(GlobalData globalData) {
+        this.globalData = globalData;
+    }
 
 
     public void setPage(String pageNumber){

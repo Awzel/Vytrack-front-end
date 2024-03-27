@@ -7,6 +7,7 @@ import static com.vytrack.utils.BrowserUtil.*;
 import com.vytrack.pages.VehiclesPage;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
+import com.vytrack.utils.GlobalData;
 import com.vytrack.utils.JsonReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,11 +17,21 @@ import org.junit.Assert;
 
 public class LoginStepDef {
 
-    LoginPage loginPage = new LoginPage();
-    VehiclesPage vehiclesPage = new VehiclesPage();
-    ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
-    @Given("the user logged in with {string} datatype as {string}")
-    public void the_user_logged_in_with_datatype_as(String dataType, String userType) {
+    LoginPage loginPage;
+    VehiclesPage vehiclesPage;
+    ForgotPasswordPage forgotPasswordPage;
+
+    GlobalData globalData;
+
+    public LoginStepDef(LoginPage loginPage, VehiclesPage vehiclesPage, ForgotPasswordPage forgotPasswordPage, GlobalData globalData) {
+        this.loginPage = loginPage;
+        this.vehiclesPage = vehiclesPage;
+        this.forgotPasswordPage = forgotPasswordPage;
+        this.globalData = globalData;
+    }
+
+    @Given("user logged in with {string} datatype as {string}")
+    public void user_logged_in_with_datatype_as(String dataType, String userType) {
         loginPage.login(dataType,userType);
     }
     @Then("user is on {string} page")
@@ -31,23 +42,19 @@ public class LoginStepDef {
             TitleVerification(title);
         }
 
-    @Then("user  click on  {string} button")
-    public void userClickOnButton(String arg0) {
+    @Then("the user click on {string} button")
+    public void theUserClickOnButton(String arg0) {
         loginPage.logOut();
     }
 
-    @Then("then the checkbox should be checked")
-    public void thenTheCheckboxShouldBeChecked() {
+    @Then("the checkbox should be checked")
+    public void theCheckboxShouldBeChecked() {
         Assert.assertTrue(loginPage.rememberMeChecked());
     }
 
     @When("user click on remember me button")
     public void userClickOnRememberMeButton() {
         loginPage.rememberMeClick();
-    }
-    @Then("users  should get error message")
-    public void usersShouldGetErrorMessage() {
-       Assert.assertTrue(loginPage.errorMessageDisplayed());
     }
 
     @When("user click on 'Forgot your password?' button")
@@ -63,6 +70,10 @@ public class LoginStepDef {
 
     @Then("user should get {string} message")
     public void userShouldGetMessage(String type) {
-        Assert.assertTrue(forgotPasswordPage.displayMessage(type));
+        if (globalData.getScenarioName().startsWith("unable to login")){
+            Assert.assertTrue(loginPage.errorMessageDisplayed());
+        }else {
+            Assert.assertTrue(forgotPasswordPage.displayMessage(type));
+        }
     }
 }
