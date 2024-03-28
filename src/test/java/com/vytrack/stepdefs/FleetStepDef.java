@@ -39,16 +39,13 @@ public class FleetStepDef {
         Assert.assertEquals(expected,actual);
     }
 
-<<<<<<< HEAD
-    @And("user able to click reset button")
+    @When("user click to reset button")
     public void userAbleToClickResetButton() {
           vehiclesPage.resetButtonClick();
     }
-=======
     @Then("user cannot create cars")
     public void user_cannot_create_cars() {
         vehiclesPage.verifyCannotClickCreateCarBtn();
     }
 
->>>>>>> main
 }

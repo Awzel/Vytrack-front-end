@@ -23,13 +23,11 @@ public abstract class CommonFeaturePage extends BasePage{
     @FindBy(xpath = "//tbody[@class='grid-body']/tr")
     protected List<WebElement> displayedItems;
 
-<<<<<<< HEAD
     @FindBy(xpath = "//a[@title='Reset']")
      protected WebElement resetButton;
-=======
     @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
     protected WebElement createCarBtn;
->>>>>>> main
+
 
     GlobalData globalData;
 
@@ -64,11 +62,9 @@ public abstract class CommonFeaturePage extends BasePage{
        return displayedItems.size()+"";
     }
 
-<<<<<<< HEAD
     public void resetButtonClick(){
        click(resetButton);
     }
-=======
     public void verifyCannotClickCreateCarBtn (){
         try {
             Assert.assertFalse(createCarBtn.isDisplayed());
@@ -81,5 +77,7 @@ public abstract class CommonFeaturePage extends BasePage{
 
     }
 
->>>>>>> main
+    public String defaultNumberOfDisplayItems(){
+        return displayedItems.size()+"";
+    }
 }
