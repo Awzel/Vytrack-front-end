@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BrowserUtil {
@@ -67,6 +68,10 @@ public class BrowserUtil {
 
     public static WebElement findByXpath(String xpathExpression){
         return Driver.getDriver().findElement(By.xpath(xpathExpression));
+    }
+
+    public static List<WebElement> getListOfElementsByXpath(String xpath){
+        return Driver.getDriver().findElements(By.xpath(xpath));
     }
 
     public static void hoverOverTo(WebElement element){

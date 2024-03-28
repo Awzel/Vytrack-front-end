@@ -4,13 +4,17 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 
 import com.vytrack.utils.BrowserUtil;
+import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
+import io.cucumber.java.zh_cn.假如;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class CommonFeaturePage extends BasePage{
 
@@ -25,6 +29,10 @@ public abstract class CommonFeaturePage extends BasePage{
 
     @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
     protected WebElement createCarBtn;
+
+    @FindBy(xpath = "//thead[1]//th")
+    protected List<WebElement> tHeads;
+    protected String values_XPATH = "//tbody/tr[%s]/td";
 
     GlobalData globalData;
 
@@ -70,5 +78,32 @@ public abstract class CommonFeaturePage extends BasePage{
         }
 
     }
+
+    private List<String> keys(){
+        List<String> keys = new ArrayList<>();
+        tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
+        return keys;
+    }
+
+    private List<String> values(List<WebElement> valuesElement){
+        List<String> values = new ArrayList<>();
+        valuesElement.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
+        return values;
+    }
+
+    public void saveAndSelect(String index){
+        List<WebElement> valuesElement = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+        Map<String,String> mappy = new LinkedHashMap<>();
+        globalData.setObject(mappy);
+        for (int i = 0; i < keys().size(); i++) {
+            if (keys().get(i).equalsIgnoreCase("last odometer")||keys().get(i).equalsIgnoreCase("chassis number")){
+                globalData.getObject().put(keys().get(i).toLowerCase(),values(valuesElement).get(i).replace(",",""));
+                continue;
+            }
+            globalData.getObject().put(keys().get(i).toLowerCase(),values(valuesElement).get(i));
+        }
+        BrowserUtil.click(valuesElement.get(0));
+    }
+
 
 }

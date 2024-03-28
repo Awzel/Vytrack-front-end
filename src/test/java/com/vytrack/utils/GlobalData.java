@@ -1,10 +1,22 @@
 package com.vytrack.utils;
 
 
+import java.util.Map;
+
 public class GlobalData {
     private String pageNum;
 
     private String scenarioName;
+
+    private Map<String,String> object;
+
+    public Map<String, String> getObject() {
+        return object;
+    }
+
+    public void setObject(Map<String, String> object) {
+        this.object = object;
+    }
 
     public String getScenarioName() {
         return scenarioName;
