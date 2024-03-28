@@ -4,13 +4,17 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 
 import com.vytrack.utils.BrowserUtil;
+import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
+import io.cucumber.java.zh_cn.假如;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class CommonFeaturePage extends BasePage{
 
@@ -23,8 +27,15 @@ public abstract class CommonFeaturePage extends BasePage{
     @FindBy(xpath = "//tbody[@class='grid-body']/tr")
     protected List<WebElement> displayedItems;
 
+    @FindBy(xpath = "//a[@title='Reset']")
+     protected WebElement resetButton;
     @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
     protected WebElement createCarBtn;
+
+    @FindBy(xpath = "//thead[1]//th")
+    protected List<WebElement> tHeads;
+    protected String values_XPATH = "//tbody/tr[%s]/td";
+
 
     GlobalData globalData;
 
@@ -35,6 +46,7 @@ public abstract class CommonFeaturePage extends BasePage{
 
     public void setPage(String pageNumber){
         if (isValidSetNumber(pageNumber)) {
+            globalData.setDefaultPageNum("25");
             globalData.setPageNum(pageNumber);
             click(viewPerPageBtn);
             for (WebElement pageOption : pageOptions) {
@@ -59,6 +71,9 @@ public abstract class CommonFeaturePage extends BasePage{
        return displayedItems.size()+"";
     }
 
+    public void resetButtonClick(){
+       click(resetButton);
+    }
     public void verifyCannotClickCreateCarBtn (){
         try {
             Assert.assertFalse(createCarBtn.isDisplayed());
@@ -71,4 +86,56 @@ public abstract class CommonFeaturePage extends BasePage{
 
     }
 
+
+    private List<String> keys(){
+        List<String> keys = new ArrayList<>();
+       // tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
+        int i = 0;
+        for (WebElement tHead : tHeads) {
+            if (i==7){
+                break;
+            }
+            keys.add(tHead.getText().toLowerCase());
+            i++;
+        }
+        return keys;
+    }
+
+//    private List<String> values(List<WebElement> valuesElement){
+//        List<String> values = new ArrayList<>();
+//        valuesElement.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
+//        return values;
+//    }
+
+    private List<String> values(String index){
+        List<WebElement> values = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+        List<String> valuesText = new ArrayList<>();
+        int i = 0;
+        for (WebElement value : values) {
+            if (i==7){
+                break;
+            }
+            valuesText.add(value.getText());
+            i++;
+        }
+        return valuesText;
+    }
+    public void saveAndSelect(String index){
+        List<WebElement> valueElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+        List<String> keys = keys();
+        List<String> values = values(index);
+        Map<String,String> mappy = new LinkedHashMap<>();
+        globalData.setObject(mappy);
+
+        for (int i = 0; i < keys.size(); i++) {
+            if (keys.get(i).equalsIgnoreCase("chassis number")||keys.get(i).equalsIgnoreCase("last odometer")){
+                globalData.getObject().put(keys.get(i),values.get(i).replace(",",""));
+                continue;
+            }
+            mappy.put(keys.get(i),values.get(i) );
+        }
+
+        BrowserUtil.click(valueElements.get(0));
+        sleep(2);
+    }
 }

@@ -1,5 +1,7 @@
 package com.vytrack.stepdefs;
 
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 import com.vytrack.pages.ForgotPasswordPage;
 import com.vytrack.pages.LoginPage;
 import static com.vytrack.utils.BrowserUtil.*;
@@ -39,6 +41,7 @@ public class LoginStepDef {
         if (title.equals("Vehicles")){
             title = vehiclesPage.getTitle();
         }
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"Title: ".concat(title));
             TitleVerification(title);
         }
 

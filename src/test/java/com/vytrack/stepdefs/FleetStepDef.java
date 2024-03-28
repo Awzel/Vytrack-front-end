@@ -1,21 +1,25 @@
 package com.vytrack.stepdefs;
 
 import com.vytrack.pages.DashboardPage;
+import com.vytrack.pages.GeneralCarInfoPage;
 import com.vytrack.pages.VehiclesPage;
-import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.GlobalData;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.Map;
+
 public class FleetStepDef {
     VehiclesPage vehiclesPage;
     DashboardPage dashboardPage;
+    GeneralCarInfoPage generalCarInfoPage;
     GlobalData globalData;
 
-    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GlobalData globalData) {
+    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData) {
         this.vehiclesPage = vehiclesPage;
         this.dashboardPage = dashboardPage;
+        this.generalCarInfoPage = generalCarInfoPage;
         this.globalData = globalData;
     }
 
@@ -38,9 +42,25 @@ public class FleetStepDef {
         Assert.assertEquals(expected,actual);
     }
 
+    @When("user click to reset button")
+    public void userAbleToClickResetButton() {
+          vehiclesPage.resetButtonClick();
+          vehiclesPage.setPage(globalData.getDefaultPageNum());
+    }
     @Then("user cannot create cars")
     public void user_cannot_create_cars() {
         vehiclesPage.verifyCannotClickCreateCarBtn();
     }
 
+    @When("user selects information in column {string}")
+    public void userSelectsInformationInColumn(String index) {
+        vehiclesPage.saveAndSelect(index);
+    }
+
+    @Then("user should get the correct information from the object")
+    public void userShouldGetTheCorrectInformationFromTheObject() {
+        Map<String,String> expectedObject = globalData.getObject();
+        Map<String,String> actualObject = generalCarInfoPage.actualObject();
+        Assert.assertEquals(expectedObject,actualObject);
+    }
 }
