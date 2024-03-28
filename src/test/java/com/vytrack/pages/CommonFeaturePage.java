@@ -38,6 +38,7 @@ public abstract class CommonFeaturePage extends BasePage{
 
     public void setPage(String pageNumber){
         if (isValidSetNumber(pageNumber)) {
+            globalData.setDefaultPageNum("25");
             globalData.setPageNum(pageNumber);
             click(viewPerPageBtn);
             for (WebElement pageOption : pageOptions) {

@@ -22,7 +22,8 @@ Feature: As a tuck driver I should be able to access Vehicle under fleet module
   Scenario: driver is able to resets all the pages
   Given the user clicks "Vehicles" on "Fleet"
   Then user is on "Vehicles" page
-  Then user sets view per page to "10"
+  When user sets view per page to "10"
+  Then user should see correct number of vehicles
   When user click to reset button
   Then user should see correct number of vehicles
 

@@ -6,6 +6,16 @@ public class GlobalData {
 
     private String scenarioName;
 
+    private String defaultPageNum;
+
+    public String getDefaultPageNum() {
+        return defaultPageNum;
+    }
+
+    public void setDefaultPageNum(String defaultPageNum) {
+        this.defaultPageNum = defaultPageNum;
+    }
+
     public String getScenarioName() {
         return scenarioName;
     }

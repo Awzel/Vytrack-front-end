@@ -42,6 +42,7 @@ public class FleetStepDef {
     @When("user click to reset button")
     public void userAbleToClickResetButton() {
           vehiclesPage.resetButtonClick();
+          vehiclesPage.setPage(globalData.getDefaultPageNum());
     }
     @Then("user cannot create cars")
     public void user_cannot_create_cars() {
