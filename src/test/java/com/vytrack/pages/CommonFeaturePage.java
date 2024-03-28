@@ -12,6 +12,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -134,8 +135,8 @@ public abstract class CommonFeaturePage extends BasePage{
             }
             mappy.put(keys.get(i),values.get(i) );
         }
-
+        sleep(1);
         BrowserUtil.click(valueElements.get(0));
-        sleep(2);
+        sleep(1);
     }
 }
