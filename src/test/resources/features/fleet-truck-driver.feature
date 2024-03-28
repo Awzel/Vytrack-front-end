@@ -11,6 +11,12 @@ Feature: As a tuck driver I should be able to access Vehicle under fleet module
      When user sets view per page to "10"
      Then user should see correct number of vehicles
 
+    @aut_awzal @driver_cannot_create_vehicles
+      Scenario: truck drivers CANNOT create cars
+        Given the user clicks "Vehicles" on "Fleet"
+        Then user is on "Vehicles" page
+        And user cannot create cars
+
 
 @aut_flora  @vehicles
   Scenario: driver is able to resets all the pages
