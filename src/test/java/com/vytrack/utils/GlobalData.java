@@ -18,19 +18,30 @@ public class GlobalData {
         this.object = object;
     }
 
-    public String getScenarioName() {
-        return scenarioName;
-    }
+        private String defaultPageNum;
 
-    public void setScenarioName(String scenarioName) {
-        this.scenarioName = scenarioName;
-    }
+        public String getDefaultPageNum () {
+            return defaultPageNum;
+        }
 
-    public String getPageNum() {
-        return pageNum;
-    }
+        public void setDefaultPageNum (String defaultPageNum){
+            this.defaultPageNum = defaultPageNum;
 
-    public void setPageNum(String pageNum) {
-        this.pageNum = pageNum;
+        }
+
+        public String getScenarioName () {
+            return scenarioName;
+        }
+
+        public void setScenarioName (String scenarioName){
+            this.scenarioName = scenarioName;
+        }
+
+        public String getPageNum () {
+            return pageNum;
+        }
+
+        public void setPageNum (String pageNum){
+            this.pageNum = pageNum;
+        }
     }
-}

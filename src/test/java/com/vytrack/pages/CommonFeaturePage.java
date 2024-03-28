@@ -27,12 +27,16 @@ public abstract class CommonFeaturePage extends BasePage{
     @FindBy(xpath = "//tbody[@class='grid-body']/tr")
     protected List<WebElement> displayedItems;
 
+    @FindBy(xpath = "//a[@title='Reset']")
+     protected WebElement resetButton;
     @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
     protected WebElement createCarBtn;
+
 
     @FindBy(xpath = "//thead[1]//th")
     protected List<WebElement> tHeads;
     protected String values_XPATH = "//tbody/tr[%s]/td";
+
 
     GlobalData globalData;
 
@@ -43,6 +47,7 @@ public abstract class CommonFeaturePage extends BasePage{
 
     public void setPage(String pageNumber){
         if (isValidSetNumber(pageNumber)) {
+            globalData.setDefaultPageNum("25");
             globalData.setPageNum(pageNumber);
             click(viewPerPageBtn);
             for (WebElement pageOption : pageOptions) {
@@ -67,6 +72,9 @@ public abstract class CommonFeaturePage extends BasePage{
        return displayedItems.size()+"";
     }
 
+    public void resetButtonClick(){
+       click(resetButton);
+    }
     public void verifyCannotClickCreateCarBtn (){
         try {
             Assert.assertFalse(createCarBtn.isDisplayed());
@@ -78,6 +86,7 @@ public abstract class CommonFeaturePage extends BasePage{
         }
 
     }
+
 
     private List<String> keys(){
         List<String> keys = new ArrayList<>();
@@ -105,5 +114,10 @@ public abstract class CommonFeaturePage extends BasePage{
         BrowserUtil.click(valuesElement.get(0));
     }
 
+
+
+    public String defaultNumberOfDisplayItems(){
+        return displayedItems.size()+"";
+    }
 
 }
