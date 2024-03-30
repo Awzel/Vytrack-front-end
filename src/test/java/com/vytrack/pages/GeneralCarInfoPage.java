@@ -1,6 +1,7 @@
 package com.vytrack.pages;
 
 import com.vytrack.utils.Driver;
+import com.vytrack.utils.GlobalData;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,8 +10,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GeneralCarInfoPage {
-    public GeneralCarInfoPage(){
+    public GeneralCarInfoPage(GlobalData globalData){
         PageFactory.initElements(Driver.getDriver(), this);
+        this.globalData = globalData;
     }
 
     @FindBy(xpath = "//h5/span[.='General Information']/../following-sibling::div/label")
@@ -19,32 +21,27 @@ public class GeneralCarInfoPage {
     @FindBy(xpath = "//h5[.='General Information']/following-sibling::div/div/div")
     protected List<WebElement> valueElements;
 
+    GlobalData globalData;
 
 
-    private List<String> keys(){
+    public List<String> keys(){
         List<String> keys = new ArrayList<>();
-        int i = 0;
       //  keyElements.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
         for (WebElement key : keyElements) {
-            if (i==7){
-                break;
-            }
             keys.add(key.getText().toLowerCase());
-            i++;
         }
         return keys;
     }
 
-    private List<String> values(){
+    public List<String> values(){
         List<String> values = new ArrayList<>();
-        int i = 0;
       //  valueElements.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
         for (WebElement value : valueElements) {
-            if (i==7){
-                break;
+            if (value.getText().equals("N/A")){
+                values.add("");
+                continue;
             }
             values.add(value.getText());
-            i++;
         }
         return values;
     }
@@ -56,4 +53,16 @@ public class GeneralCarInfoPage {
         }
         return actual;
     }
+
+    public boolean isSameObject(){
+        boolean isSame = true;
+            for (String s : globalData.getObject().keySet()) {
+                if (actualObject().containsKey(s)){
+                   isSame = globalData.getObject().get(s).equals(actualObject().get(s));
+                }
+            }
+        return isSame;
+    }
+
+
 }
