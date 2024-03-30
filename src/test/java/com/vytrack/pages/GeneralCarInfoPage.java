@@ -10,9 +10,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GeneralCarInfoPage {
-    public GeneralCarInfoPage(GlobalData globalData){
+
+    public GeneralCarInfoPage() {
         PageFactory.initElements(Driver.getDriver(), this);
-        this.globalData = globalData;
     }
 
     @FindBy(xpath = "//h5/span[.='General Information']/../following-sibling::div/label")
@@ -21,13 +21,16 @@ public class GeneralCarInfoPage {
     @FindBy(xpath = "//h5[.='General Information']/following-sibling::div/div/div")
     protected List<WebElement> valueElements;
 
-    GlobalData globalData;
 
 
     public List<String> keys(){
         List<String> keys = new ArrayList<>();
       //  keyElements.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
         for (WebElement key : keyElements) {
+            if (key.getText().equals("Catalog Value (VAT Incl.)")){
+                keys.add("cvvi");
+                continue;
+            }
             keys.add(key.getText().toLowerCase());
         }
         return keys;
@@ -48,19 +51,29 @@ public class GeneralCarInfoPage {
 
     public Map<String,String> actualObject(){
         Map<String,String> actual = new LinkedHashMap<>();
-        for (int i = 0; i < keys().size(); i++) {
-                actual.put(keys().get(i),values().get(i));
+        List<String> keysLst = keys();
+        List<String> valuesLst = values();
+        for (int i = 0; i < keysLst.size(); i++) {
+            actual.put(keysLst.get(i),valuesLst.get(i));
         }
         return actual;
     }
 
     public boolean isSameObject(){
         boolean isSame = true;
-            for (String s : globalData.getObject().keySet()) {
-                if (actualObject().containsKey(s)){
-                   isSame = globalData.getObject().get(s).equals(actualObject().get(s));
-                }
-            }
+//        List<String> keys = globalData.getObject().keySet().stream().toList();
+//        for (String s : globalData.getObject().keySet()) {
+//            System.out.println(globalData.getObject().get(s));
+//            System.out.println(actualObject().get(s));
+//            if (!actualObject().get(s).equals(globalData.getObject().get(s))){
+//                isSame=false;
+//            }
+//        }
+
+        for (String s : actualObject().keySet()) {
+            System.out.println(actualObject().get(s));
+        }
+
         return isSame;
     }
 

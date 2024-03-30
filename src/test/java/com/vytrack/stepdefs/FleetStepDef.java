@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.Map;
 
 public class FleetStepDef {
     VehiclesPage vehiclesPage;
@@ -55,7 +54,6 @@ public class FleetStepDef {
     @When("user selects information in column {string}")
     public void userSelectsInformationInColumn(String index) {
         vehiclesPage.saveAndSelect(index);
-        System.out.println(generalCarInfoPage.actualObject());
         System.out.println(generalCarInfoPage.isSameObject());
     }
 

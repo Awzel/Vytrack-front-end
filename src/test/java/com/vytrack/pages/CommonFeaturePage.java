@@ -120,7 +120,6 @@ public abstract class CommonFeaturePage extends BasePage{
             mappy.put(keys.get(i),values.get(i) );
         }
         globalData.setObject(mappy);
-        System.out.println(globalData.getObject());
         BrowserUtil.click(valueElements.get(0));
         sleep(1);
     }
