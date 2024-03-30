@@ -9,7 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import static com.vytrack.utils.Driver.getDriver;
 
 public class BrowserUtil {
 
@@ -71,6 +75,10 @@ public class BrowserUtil {
     }
 
     public static List<WebElement> getListOfElementsByXpath(String xpath){
+        List<WebElement> webElements = Driver.getDriver().findElements(By.xpath(xpath));
+        if (webElements.isEmpty()){
+            throw new IndexOutOfBoundsException("No such index");
+        }
         return Driver.getDriver().findElements(By.xpath(xpath));
     }
 
@@ -89,5 +97,12 @@ public class BrowserUtil {
         wait.until(ExpectedConditions.textToBePresentInElement(e,text));
     }
 
-
+    public static List<String> getTextsFromElementListIgnoreCase(List<WebElement> elements){
+        List<String> keys = new ArrayList<>();
+        // tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
+        for (WebElement element : elements) {
+            keys.add(element.getText().toLowerCase());
+        }
+        return keys;
+    }
 }

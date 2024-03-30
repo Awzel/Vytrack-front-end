@@ -21,7 +21,7 @@ Feature: As a tuck driver I should be able to access Vehicle under fleet module
       Scenario: truck driver can see general information by clicking any car
         Given the user clicks "Vehicles" on "Fleet"
         Then user is on "Vehicles" page
-        When user selects information in column "2"
+        When user selects information in column "10"
         Then user should get the correct information from the object
 
     @aut_flora  @vehicles @flora

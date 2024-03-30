@@ -42,7 +42,6 @@ public abstract class CommonFeaturePage extends BasePage{
 
     public void setPage(String pageNumber){
         if (isValidSetNumber(pageNumber)) {
-            globalData.setDefaultPageNum("25");
             globalData.setPageNum(pageNumber);
             click(viewPerPageBtn);
             for (WebElement pageOption : pageOptions) {
@@ -82,45 +81,20 @@ public abstract class CommonFeaturePage extends BasePage{
 
     }
 
-
-    public List<String> keys(){
-        List<String> keys = new ArrayList<>();
-       // tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
-        for (WebElement tHead : tHeads) {
-            keys.add(tHead.getText().toLowerCase());
-        }
-        return keys;
-    }
-
-//    private List<String> values(List<WebElement> valuesElement){
-//        List<String> values = new ArrayList<>();
-//        valuesElement.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
-//        return values;
-//    }
-
-    public List<String> values(String index){
+    private List<String> values(String index){
         List<WebElement> values = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
-        List<String> valuesText = new ArrayList<>();
-        for (WebElement value : values) {
-            valuesText.add(value.getText());
-        }
-        return valuesText;
+        return BrowserUtil.getTextsFromElementListIgnoreCase(values);
     }
     public void saveAndSelect(String index){
         List<WebElement> valueElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
-        List<String> keys = keys();
+        List<String> keys = BrowserUtil.getTextsFromElementListIgnoreCase(tHeads);;
         List<String> values = values(index);
-        Map<String,String> mappy = new LinkedHashMap<>();
+        globalData.setCreateMapFromLists(keys,values);
+        globalData.setObject(globalData.getCreateMapFromLists());
+        BrowserUtil.click(valueElements.getFirst());
+    }
 
-        for (int i = 0; i < keys.size(); i++) {
-            if (keys.get(i).equalsIgnoreCase("chassis number")||keys.get(i).equalsIgnoreCase("last odometer")){
-                mappy.put(keys.get(i),values.get(i).replace(",",""));
-                continue;
-            }
-            mappy.put(keys.get(i),values.get(i) );
-        }
-        globalData.setObject(mappy);
-        BrowserUtil.click(valueElements.get(0));
-        sleep(1);
+    public String getDefaultVpp(){
+        return viewPerPageBtn.getText();
     }
 }

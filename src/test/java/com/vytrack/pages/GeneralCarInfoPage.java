@@ -11,7 +11,9 @@ import java.util.stream.Collectors;
 
 public class GeneralCarInfoPage {
 
-    public GeneralCarInfoPage() {
+    GlobalData globalData;
+    public GeneralCarInfoPage(GlobalData globalData) {
+        this.globalData = globalData;
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
@@ -23,7 +25,7 @@ public class GeneralCarInfoPage {
 
 
 
-    public List<String> keys(){
+    private List<String> keys(){
         List<String> keys = new ArrayList<>();
       //  keyElements.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
         for (WebElement key : keyElements) {
@@ -36,7 +38,7 @@ public class GeneralCarInfoPage {
         return keys;
     }
 
-    public List<String> values(){
+    private List<String> values(){
         List<String> values = new ArrayList<>();
       //  valueElements.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
         for (WebElement value : valueElements) {
@@ -44,34 +46,25 @@ public class GeneralCarInfoPage {
                 values.add("");
                 continue;
             }
-            values.add(value.getText());
+            values.add(value.getText().toLowerCase());
         }
         return values;
     }
 
-    public Map<String,String> actualObject(){
-        Map<String,String> actual = new LinkedHashMap<>();
+    private Map<String, String> actualObject(){
         List<String> keysLst = keys();
         List<String> valuesLst = values();
-        for (int i = 0; i < keysLst.size(); i++) {
-            actual.put(keysLst.get(i),valuesLst.get(i));
-        }
-        return actual;
+        globalData.setCreateMapFromLists(keysLst,valuesLst);
+        return globalData.getCreateMapFromLists();
     }
 
     public boolean isSameObject(){
         boolean isSame = true;
-//        List<String> keys = globalData.getObject().keySet().stream().toList();
-//        for (String s : globalData.getObject().keySet()) {
-//            System.out.println(globalData.getObject().get(s));
-//            System.out.println(actualObject().get(s));
-//            if (!actualObject().get(s).equals(globalData.getObject().get(s))){
-//                isSame=false;
-//            }
-//        }
-
-        for (String s : actualObject().keySet()) {
-            System.out.println(actualObject().get(s));
+        Map<String,String> mappy = actualObject();
+        for (String s : globalData.getObject().keySet()) {
+           if (!globalData.getObject().get(s).equals(mappy.get(s))){
+               isSame = false;
+           }
         }
 
         return isSame;

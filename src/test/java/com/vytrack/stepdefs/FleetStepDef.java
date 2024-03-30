@@ -4,6 +4,7 @@ import com.vytrack.pages.DashboardPage;
 import com.vytrack.pages.GeneralCarInfoPage;
 import com.vytrack.pages.VehiclesPage;
 import com.vytrack.utils.GlobalData;
+import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -44,7 +45,7 @@ public class FleetStepDef {
     @When("user click to reset button")
     public void userAbleToClickResetButton() {
           vehiclesPage.resetButtonClick();
-          vehiclesPage.setPage(globalData.getDefaultPageNum());
+          vehiclesPage.setPage(vehiclesPage.getDefaultVpp());
     }
     @Then("user cannot create cars")
     public void user_cannot_create_cars() {
@@ -54,13 +55,10 @@ public class FleetStepDef {
     @When("user selects information in column {string}")
     public void userSelectsInformationInColumn(String index) {
         vehiclesPage.saveAndSelect(index);
-        System.out.println(generalCarInfoPage.isSameObject());
     }
 
     @Then("user should get the correct information from the object")
     public void userShouldGetTheCorrectInformationFromTheObject() {
-//        Map<String,String> expectedObject = globalData.getObject();
-//        Map<String,String> actualObject = generalCarInfoPage.actualObject();
-//        Assert.assertEquals(expectedObject,actualObject);
+        Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
 }
