@@ -4,7 +4,6 @@ import com.vytrack.pages.DashboardPage;
 import com.vytrack.pages.GeneralCarInfoPage;
 import com.vytrack.pages.VehiclesPage;
 import com.vytrack.utils.GlobalData;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
