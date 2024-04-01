@@ -91,7 +91,7 @@ public abstract class CommonFeaturePage extends BasePage{
         List<String> values = values(index);
         globalData.setCreateMapFromLists(keys,values);
         globalData.setObject(globalData.getCreateMapFromLists());
-        BrowserUtil.click(valueElements.getFirst());
+        BrowserUtil.click(valueElements.get(0));
     }
 
     public String getDefaultVpp(){
