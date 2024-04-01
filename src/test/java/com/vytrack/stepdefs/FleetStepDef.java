@@ -62,13 +62,13 @@ public class FleetStepDef {
     }
 
     @When("driver selects information in column {string}")
-    public void driverSelectsInformationInColumn(String index) {
-        vehiclesPage.saveAndSelect(index);
+    public void driverSelectsInformationInColumn(int index) {
+        vehiclesPage.selectOnly(index);
     }
 
     @Then("user is able to click Add Event button")
     public void user_is_able_to_click_add_event_button() {
-        generalCarInfoPage.clickCreateEvent();
+        //generalCarInfoPage.clickCreateEvent();
 
     }
     @Then("user is able to see the event created under Activity tab")

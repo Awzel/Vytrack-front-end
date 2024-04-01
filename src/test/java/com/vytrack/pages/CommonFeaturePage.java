@@ -94,6 +94,11 @@ public abstract class CommonFeaturePage extends BasePage{
         BrowserUtil.click(valueElements.get(0));
     }
 
+    public void selectOnly(int index){
+        List<WebElement> valueElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+        BrowserUtil.click(valueElements.get(index));
+    }
+
     public String getDefaultVpp(){
         return viewPerPageBtn.getText();
     }
