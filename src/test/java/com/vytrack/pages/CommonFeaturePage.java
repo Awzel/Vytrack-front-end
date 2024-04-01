@@ -4,18 +4,13 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 
 import com.vytrack.utils.BrowserUtil;
-import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
-import io.cucumber.java.zh_cn.假如;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class CommonFeaturePage extends BasePage{
 
@@ -31,11 +26,11 @@ public abstract class CommonFeaturePage extends BasePage{
     @FindBy(xpath = "//a[@title='Reset']")
      protected WebElement resetButton;
     @FindBy (xpath = "//a[starts-with(@title,'Create ')]")
-    protected WebElement createCarBtn;
+    protected WebElement createBtn;
 
-    @FindBy(xpath = "//thead[1]//th")
+    @FindBy(xpath = "//thead[1]//th[starts-with(@class,'grid-cell')]")
     protected List<WebElement> tHeads;
-    protected String values_XPATH = "//tbody/tr[%s]/td";
+    protected String values_XPATH = "//tbody/tr[%s]/td[not(contains(@class,'action-cell'))]";
 
 
     GlobalData globalData;
@@ -47,7 +42,6 @@ public abstract class CommonFeaturePage extends BasePage{
 
     public void setPage(String pageNumber){
         if (isValidSetNumber(pageNumber)) {
-            globalData.setDefaultPageNum("25");
             globalData.setPageNum(pageNumber);
             click(viewPerPageBtn);
             for (WebElement pageOption : pageOptions) {
@@ -77,7 +71,7 @@ public abstract class CommonFeaturePage extends BasePage{
     }
     public void verifyCannotClickCreateCarBtn (){
         try {
-            Assert.assertFalse(createCarBtn.isDisplayed());
+            Assert.assertFalse(createBtn.isDisplayed());
             System.out.println("Button is not displayed.");
         } catch (NoSuchElementException e) {
             System.out.println("Button not found.");
@@ -87,56 +81,20 @@ public abstract class CommonFeaturePage extends BasePage{
 
     }
 
-
-    private List<String> keys(){
-        List<String> keys = new ArrayList<>();
-       // tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
-        int i = 0;
-        for (WebElement tHead : tHeads) {
-            if (i==7){
-                break;
-            }
-            keys.add(tHead.getText().toLowerCase());
-            i++;
-        }
-        return keys;
-    }
-
-//    private List<String> values(List<WebElement> valuesElement){
-//        List<String> values = new ArrayList<>();
-//        valuesElement.stream().map(s->values.add(s.getText())).limit(7).collect(Collectors.toList());
-//        return values;
-//    }
-
     private List<String> values(String index){
         List<WebElement> values = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
-        List<String> valuesText = new ArrayList<>();
-        int i = 0;
-        for (WebElement value : values) {
-            if (i==7){
-                break;
-            }
-            valuesText.add(value.getText());
-            i++;
-        }
-        return valuesText;
+        return BrowserUtil.getTextsFromElementListIgnoreCase(values);
     }
     public void saveAndSelect(String index){
         List<WebElement> valueElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
-        List<String> keys = keys();
+        List<String> keys = BrowserUtil.getTextsFromElementListIgnoreCase(tHeads);;
         List<String> values = values(index);
-        Map<String,String> mappy = new LinkedHashMap<>();
-        globalData.setObject(mappy);
-
-        for (int i = 0; i < keys.size(); i++) {
-            if (keys.get(i).equalsIgnoreCase("chassis number")||keys.get(i).equalsIgnoreCase("last odometer")){
-                globalData.getObject().put(keys.get(i),values.get(i).replace(",",""));
-                continue;
-            }
-            mappy.put(keys.get(i),values.get(i) );
-        }
-        sleep(1);
+        globalData.setCreateMapFromLists(keys,values);
+        globalData.setObject(globalData.getCreateMapFromLists());
         BrowserUtil.click(valueElements.get(0));
-        sleep(1);
+    }
+
+    public String getDefaultVpp(){
+        return viewPerPageBtn.getText();
     }
 }

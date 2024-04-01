@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.Map;
 
 public class FleetStepDef {
     VehiclesPage vehiclesPage;
@@ -45,7 +44,7 @@ public class FleetStepDef {
     @When("user click to reset button")
     public void userAbleToClickResetButton() {
           vehiclesPage.resetButtonClick();
-          vehiclesPage.setPage(globalData.getDefaultPageNum());
+          vehiclesPage.setPage(vehiclesPage.getDefaultVpp());
     }
     @Then("user cannot create cars")
     public void user_cannot_create_cars() {
@@ -59,8 +58,6 @@ public class FleetStepDef {
 
     @Then("user should get the correct information from the object")
     public void userShouldGetTheCorrectInformationFromTheObject() {
-        Map<String,String> expectedObject = globalData.getObject();
-        Map<String,String> actualObject = generalCarInfoPage.actualObject();
-        Assert.assertEquals(expectedObject,actualObject);
+        Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
 }
