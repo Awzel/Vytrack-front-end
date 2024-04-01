@@ -1,8 +1,7 @@
 package com.vytrack.stepdefs;
 
-import com.vytrack.pages.DashboardPage;
-import com.vytrack.pages.GeneralCarInfoPage;
-import com.vytrack.pages.VehiclesPage;
+import com.vytrack.pages.*;
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.GlobalData;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,6 +13,7 @@ public class FleetStepDef {
     DashboardPage dashboardPage;
     GeneralCarInfoPage generalCarInfoPage;
     GlobalData globalData;
+    AddEventPage addEventPage;
 
     public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData) {
         this.vehiclesPage = vehiclesPage;
@@ -60,4 +60,21 @@ public class FleetStepDef {
     public void userShouldGetTheCorrectInformationFromTheObject() {
         Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
+
+    @When("driver selects information in column {string}")
+    public void driverSelectsInformationInColumn(String index) {
+        vehiclesPage.saveAndSelect(index);
+    }
+
+    @Then("user is able to click Add Event button")
+    public void user_is_able_to_click_add_event_button() {
+        generalCarInfoPage.clickCreateEvent();
+
+    }
+    @Then("user is able to see the event created under Activity tab")
+    public void user_is_able_to_see_the_event_created_under_activity_tab() {
+        //addEventPage.titleInput();
+
+    }
+
 }
