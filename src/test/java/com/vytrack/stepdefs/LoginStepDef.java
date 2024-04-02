@@ -2,19 +2,16 @@ package com.vytrack.stepdefs;
 
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+import com.vytrack.enums.Titles;
 import com.vytrack.pages.ForgotPasswordPage;
 import com.vytrack.pages.LoginPage;
 import static com.vytrack.utils.BrowserUtil.*;
 
 import com.vytrack.pages.VehiclesPage;
-import com.vytrack.utils.BrowserUtil;
-import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
-import com.vytrack.utils.JsonReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.apache.velocity.runtime.directive.contrib.For;
 import org.junit.Assert;
 
 public class LoginStepDef {
@@ -38,11 +35,9 @@ public class LoginStepDef {
     }
     @Then("user is on {string} page")
     public void user_is_on_page(String title) {
-        if (title.equals("Vehicles")){
-            title = vehiclesPage.getTitle();
-        }
-        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"Title: ".concat(title));
-            TitleVerification(title);
+        String keyword = getTitle(title);
+        ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"Title: ".concat(keyword));
+        TitleVerification(keyword);
         }
 
     @Then("the user click on {string} button")
@@ -78,5 +73,17 @@ public class LoginStepDef {
         }else {
             Assert.assertTrue(forgotPasswordPage.displayMessage(type));
         }
+    }
+
+    private String getTitle(String keyWord){
+        switch (keyWord){
+            case "Vehicles":
+                keyWord = vehiclesPage.getTitle();
+                break;
+            case "Odometer":
+                keyWord = Titles.ODOMETER.getValue();
+                break;
+        }
+        return keyWord;
     }
 }
