@@ -4,6 +4,7 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 
 import com.vytrack.utils.BrowserUtil;
+import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
@@ -93,13 +94,25 @@ public abstract class CommonFeaturePage extends BasePage{
         globalData.setObject(globalData.getCreateMapFromLists());
         BrowserUtil.click(valueElements.get(0));
     }
-
-    public void selectOnly(int index){
-        List<WebElement> valueElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
-        BrowserUtil.click(valueElements.get(index));
-    }
-
     public String getDefaultVpp(){
         return viewPerPageBtn.getText();
     }
+
+    public void clickElementByIndex(int index) {
+        try {
+
+            List<WebElement> webElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+
+            if (index >= 0 && index < webElements.size()) {
+                WebElement elementToClick = webElements.get(index);
+                click(elementToClick);
+                System.out.println("Clicked element at index " + index);
+            } else {
+                System.err.println("Invalid index: " + index);
+            }
+        } catch (Exception e) {
+            System.err.println("Error while clicking element at index " + index + ": " + e.getMessage());
+        }
+    }
+
 }

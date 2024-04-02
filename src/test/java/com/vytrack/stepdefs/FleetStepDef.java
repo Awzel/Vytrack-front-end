@@ -63,7 +63,7 @@ public class FleetStepDef {
 
     @When("driver selects information in column {string}")
     public void driverSelectsInformationInColumn(int index) {
-        vehiclesPage.selectOnly(index);
+        vehiclesPage.clickElementByIndex(index);
     }
 
     @Then("user is able to click Add Event button")
