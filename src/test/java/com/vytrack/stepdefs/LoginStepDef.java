@@ -8,6 +8,7 @@ import com.vytrack.pages.LoginPage;
 import static com.vytrack.utils.BrowserUtil.*;
 
 import com.vytrack.pages.VehiclesPage;
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.GlobalData;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -38,6 +39,7 @@ public class LoginStepDef {
         String keyword = getTitle(title);
         ExtentCucumberAdapter.getCurrentStep().log(Status.INFO,"Title: ".concat(keyword));
         TitleVerification(keyword);
+
         }
 
     @Then("the user click on {string} button")
@@ -83,6 +85,8 @@ public class LoginStepDef {
             case "Odometer":
                 keyWord = Titles.ODOMETER.getValue();
                 break;
+            case "Dashboard":
+                keyWord = "Dashboard";
         }
         return keyWord;
     }
