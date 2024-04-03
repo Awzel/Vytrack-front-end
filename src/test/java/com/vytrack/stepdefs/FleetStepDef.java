@@ -13,13 +13,14 @@ public class FleetStepDef {
     DashboardPage dashboardPage;
     GeneralCarInfoPage generalCarInfoPage;
     GlobalData globalData;
-    AddEventPage addEventPage = new AddEventPage();
+    AddEventPage addEventPage;
 
-    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData) {
+    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData, AddEventPage addEventPage) {
         this.vehiclesPage = vehiclesPage;
         this.dashboardPage = dashboardPage;
         this.generalCarInfoPage = generalCarInfoPage;
         this.globalData = globalData;
+        this.addEventPage = addEventPage;
     }
 
     @When("the user clicks {string} on {string}")
