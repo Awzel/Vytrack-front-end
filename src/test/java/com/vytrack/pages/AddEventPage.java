@@ -2,6 +2,7 @@ package com.vytrack.pages;
 
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,11 +13,35 @@ public class AddEventPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(id = "oro_calendar_event_form_title-uid-660b10ed29291")
+    @FindBy(xpath = "//input[@name='oro_calendar_event_form[title]']")
     protected WebElement titleInput;
 
-    public void titleInput (){
+    @FindBy(xpath = "//html//body[@id='tinymce']")
+    protected WebElement descriptionInput;
+
+    @FindBy(xpath = "//iframe")
+    protected WebElement descriptionInputIframe;
+
+
+    @FindBy(xpath = "//input[@name='oro_calendar_event_form[organizerDisplayName]']")
+    protected WebElement organizerDisplayNameInput;
+
+    @FindBy(xpath = "//input[@type='email']")
+    protected WebElement organizerEmailInput;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    protected WebElement saveBtn;
+
+    public void eventInfoInput(){
         titleInput.sendKeys("This is a new event");
+        Driver.getDriver().switchTo().frame(descriptionInputIframe);
+        descriptionInput.click();
+        descriptionInput.sendKeys("Exciting new event coming up!");
+        Driver.getDriver().switchTo().parentFrame();
+        organizerDisplayNameInput.sendKeys("Joe Rogan");
+        organizerEmailInput.sendKeys("jrogan123@email.com");
+        BrowserUtil.sleep(3);
+        saveBtn.click();
     }
 
 

@@ -13,7 +13,7 @@ public class FleetStepDef {
     DashboardPage dashboardPage;
     GeneralCarInfoPage generalCarInfoPage;
     GlobalData globalData;
-    AddEventPage addEventPage;
+    AddEventPage addEventPage = new AddEventPage();
 
     public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData) {
         this.vehiclesPage = vehiclesPage;
@@ -61,19 +61,17 @@ public class FleetStepDef {
         Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
 
-    @When("driver selects information in column {string}")
-    public void driverSelectsInformationInColumn(int index) {
-        vehiclesPage.clickElementByIndex(index);
-    }
-
     @Then("user is able to click Add Event button")
     public void user_is_able_to_click_add_event_button() {
-        //generalCarInfoPage.clickCreateEvent();
-
+        generalCarInfoPage.clickCreateEvent();
+    }
+    @Then("user is able to fill the event info and save")
+    public void user_is_able_to_fill_the_event_info_and_save() {
+        BrowserUtil.sleep(2);
+        addEventPage.eventInfoInput();
     }
     @Then("user is able to see the event created under Activity tab")
     public void user_is_able_to_see_the_event_created_under_activity_tab() {
-        //addEventPage.titleInput();
 
     }
 

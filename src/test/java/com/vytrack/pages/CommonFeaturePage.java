@@ -10,7 +10,10 @@ import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.*;
 
 public abstract class CommonFeaturePage extends BasePage{
@@ -92,7 +95,7 @@ public abstract class CommonFeaturePage extends BasePage{
         List<String> values = values(index);
         globalData.setCreateMapFromLists(keys,values);
         globalData.setObject(globalData.getCreateMapFromLists());
-        BrowserUtil.click(valueElements.get(0));
+        valueElements.getFirst().click();
     }
     public String getDefaultVpp(){
         return viewPerPageBtn.getText();
