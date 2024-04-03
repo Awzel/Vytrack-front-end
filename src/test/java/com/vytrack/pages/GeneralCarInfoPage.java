@@ -47,6 +47,8 @@ public class GeneralCarInfoPage {
                 continue;
             }
             values.add(value.getText().toLowerCase());
+
+            valueElements.stream().filter(s->equals("N/A")).map(s->s.getText().toLowerCase());
         }
         return values;
     }
