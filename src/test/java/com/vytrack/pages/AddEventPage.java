@@ -35,13 +35,11 @@ public class AddEventPage {
     public void eventInfoInput(){
         titleInput.sendKeys("This is a new event");
         Driver.getDriver().switchTo().frame(descriptionInputIframe);
-        descriptionInput.click();
         descriptionInput.sendKeys("Exciting new event coming up!");
         Driver.getDriver().switchTo().parentFrame();
         organizerDisplayNameInput.sendKeys("Joe Rogan");
         organizerEmailInput.sendKeys("jrogan123@email.com");
-        BrowserUtil.sleep(3);
-        saveBtn.click();
+        BrowserUtil.click(saveBtn);
     }
 
 
