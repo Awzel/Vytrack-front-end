@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "com/vytrack/stepdefs",
         dryRun = false,
-        tags = "@odometer-info",
+        tags = "@carInfo",
         publish = true //generating a report with public link
 )
 
