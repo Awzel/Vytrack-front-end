@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.vytrack.utils.Driver.getDriver;
 
@@ -99,10 +100,7 @@ public class BrowserUtil {
 
     public static List<String> getTextsFromElementListIgnoreCase(List<WebElement> elements){
         List<String> keys = new ArrayList<>();
-        // tHeads.stream().map(s->keys.add(s.getText())).limit(7).collect(Collectors.toSet());
-        for (WebElement element : elements) {
-            keys.add(element.getText().toLowerCase());
-        }
+        elements.stream().map(s->keys.add(s.getText().toLowerCase())).collect(Collectors.toList());
         return keys;
     }
 }
