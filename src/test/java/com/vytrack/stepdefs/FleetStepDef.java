@@ -7,6 +7,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
+import java.util.Map;
+
 
 public class FleetStepDef {
     VehiclesPage vehiclesPage;
@@ -68,12 +70,20 @@ public class FleetStepDef {
     }
     @Then("user is able to fill the event info and save")
     public void user_is_able_to_fill_the_event_info_and_save() {
+        addEventPage.eventInfoInputAndSave();
         BrowserUtil.sleep(2);
-        addEventPage.eventInfoInput();
     }
     @Then("user is able to see the event created under Activity tab")
     public void user_is_able_to_see_the_event_created_under_activity_tab() {
+        BrowserUtil.sleep(2);
+        addEventPage.clickActivityTab();
+        BrowserUtil.sleep(2);
+        Map<String, String> actualEventInfo = addEventPage.getEventInfoFromActivityTab();
+        Map<String, String> expectedEventInfo = globalData.getObject();
+        System.out.println(actualEventInfo);
+        System.out.println(expectedEventInfo);
 
+//        Assert.assertEquals(actualEventInfo, expectedEventInfo);*/
     }
 
 }
