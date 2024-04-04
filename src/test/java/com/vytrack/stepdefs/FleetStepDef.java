@@ -61,4 +61,10 @@ public class FleetStepDef {
     public void userShouldGetTheCorrectInformationFromTheObject() {
         Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
+    @Then("user should get{string} message")
+    public void userShouldGetMessage(String msg) {
+        String actualAlertMessage= dashboardPage.getActualErrorMessage();
+        Assert.assertEquals(actualAlertMessage, msg);
+
+    }
 }
