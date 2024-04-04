@@ -61,4 +61,11 @@ public class FleetStepDef {
     public void userShouldGetTheCorrectInformationFromTheObject() {
         Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
+    @Then("user should get{string} message")
+    public void userShouldGetMessage(String arg0) {
+        String expectedAlertMessage= "You do not have permission to perform this action.";
+        String actualAlertMessage= dashboardPage.getActualErrorMessage();
+        Assert.assertEquals(actualAlertMessage,expectedAlertMessage);
+
+    }
 }
