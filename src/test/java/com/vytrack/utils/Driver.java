@@ -66,7 +66,7 @@ public class Driver {
                     cap.setCapability("browserName","chrome");
 
                     try {
-                        driverPool.set( new RemoteWebDriver(new URI("http://192.168.2.19:4444").toURL(),cap));
+                        driverPool.set( new RemoteWebDriver(new URI("http://ec2-54-198-170-181.compute-1.amazonaws.com:4444").toURL(),cap));
                     } catch (MalformedURLException | URISyntaxException e) {
                         throw new RuntimeException(e);
                     }

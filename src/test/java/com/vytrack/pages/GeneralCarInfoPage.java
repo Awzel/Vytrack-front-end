@@ -65,6 +65,8 @@ public class GeneralCarInfoPage {
         Map<String,String> mappy = actualObject();
         for (String s : globalData.getObject().keySet()) {
            if (!globalData.getObject().get(s).equals(mappy.get(s))){
+               System.out.println(globalData.getObject().get(s));
+               System.out.println("HERE");
                isSame = false;
            }
         }

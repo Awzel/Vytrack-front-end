@@ -9,43 +9,46 @@ they should be encrypted.
 ## Getting Started
 
 ### pre-requirements:
-- Java 17 or higher
+- Java 21 to be installed
 - Maven
     - To install Maven go to https://maven.apache.org/download.cgi
-      download and install it.
+      install it.
     - If you are using homebrew run
-      ```brew install maven``` on terminal to install maven
+      ```brew install maven``` on terminal to install
+- Selenium grid
+- Docker Engine\
+(Setting up docker and selenium grid is out of the scope)
 
 ## Concept Included
-- Parallel test runs (scenario parallel execution could be done in the near future but not the top priority.)
+- Parallel test runs (feature level)
 - Shared state across cucumber step definitions
 - Page Object pattern
 - Common web page interaction methods
 - Cucumber expression
 - Externalised test configuration
 - Commonly used test utility classes
-- Extent cucumber adapter 7 
+- Dependency Injection
 
 
 ## Tools
 - Maven
+- Java
 - Cucumber-JVM
 - Junit Cucumber
 - Selenium Webdriver
-- Selenium Grid (To be implemented)
-- Docker (To be implemented)
-- Jenkins (To be implemented)
+- Selenium Grid
+- Docker
+- Jenkins
+- Extent Report
 
 ## Usage
 The project is only for front-end functional testing. The tests can be
 utilized independently of the others using maven profiles.
 
-To run the test , navigate to ``Vytrack-front-end`` directory and simply run
-``mvn clean verify``
-To run the test remotely, change driver to 'remote' in the configuration.properties file
+To run the test locally , navigate to ``Vytrack-front-end`` directory and simply run
+``docker-compose up -d`` to create the containers and type ``mvn -f pom.xml clean test``.
 
-
-Selenium-gird: To be implemented
+To watch the automation, navigate to ``localhost:4444`` -> Sessions
 ## Reporting
 Reports are under reports folder.
 Pdf and excel reports are also available in the location mentioned above.
