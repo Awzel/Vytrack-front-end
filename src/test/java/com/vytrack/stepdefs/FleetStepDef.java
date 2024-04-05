@@ -7,8 +7,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 
-import java.util.Map;
-
 
 public class FleetStepDef {
     VehiclesPage vehiclesPage;
@@ -63,6 +61,13 @@ public class FleetStepDef {
     public void userShouldGetTheCorrectInformationFromTheObject() {
         Assert.assertTrue(generalCarInfoPage.isSameObject());
     }
+    @Then("user should get{string} message")
+    public void userShouldGetMessage(String arg0) {
+        String expectedAlertMessage= "You do not have permission to perform this action.";
+        String actualAlertMessage= dashboardPage.getActualErrorMessage();
+        Assert.assertEquals(actualAlertMessage,expectedAlertMessage);
+
+    }
 
     @Then("user is able to click Add Event button")
     public void user_is_able_to_click_add_event_button() {
@@ -76,12 +81,14 @@ public class FleetStepDef {
     @Then("user is able to see the event created under Activity tab")
     public void user_is_able_to_see_the_event_created_under_activity_tab() {
         BrowserUtil.sleep(2);
-        addEventPage.clickActivityTab();
-        BrowserUtil.sleep(2);
-        Map<String, String> actualEventInfo = addEventPage.getEventInfoFromActivityTab();
-        Map<String, String> expectedEventInfo = globalData.getObject();
-        System.out.println(actualEventInfo);
-        System.out.println(expectedEventInfo);
+        addEventPage.searchForCreatedEvent();
+        addEventPage.actualValues();
+
+        BrowserUtil.sleep(3);
+//        Map<String, String> actualEventInfo = addEventPage.getEventInfoFromActivityTab();
+//        Map<String, String> expectedEventInfo = globalData.getObject();
+//        System.out.println(actualEventInfo);
+//        System.out.println(expectedEventInfo);
 
 //        Assert.assertEquals(actualEventInfo, expectedEventInfo);*/
     }
