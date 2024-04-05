@@ -107,7 +107,7 @@
                     <configuration>
                         <!-- put your configurations here -->
                         <verbose>true</verbose>
-                        <fork>true</fork>
+<!--                        <fork>true</fork>-->
                         <compilerVersion>1.3</compilerVersion>
                     </configuration>
                 </plugin>
