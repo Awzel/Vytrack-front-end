@@ -16,7 +16,7 @@ services:
     ports:
       - "4444:4444"
   jenkins:
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins:latest-jdk21
     privileged: true
     user: root
     ports:
