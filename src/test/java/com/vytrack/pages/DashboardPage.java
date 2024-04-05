@@ -19,7 +19,7 @@ public class DashboardPage extends BasePage{
     }
 
     @FindBy(xpath = "//div[.='You do not have permission to perform this action.']")
-    public WebElement alertMessage;
+    protected WebElement alertMessage;
     public String getActualErrorMessage(){
         return alertMessage.getText();
     }

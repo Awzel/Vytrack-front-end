@@ -63,9 +63,8 @@ public class FleetStepDef {
     }
     @Then("user should get{string} message")
     public void userShouldGetMessage(String arg0) {
-        String expectedAlertMessage= "You do not have permission to perform this action.";
-        String actualAlertMessage= dashboardPage.getActualErrorMessage();
-        Assert.assertEquals(actualAlertMessage,expectedAlertMessage);
+        String actualAlertMessage=dashboardPage.getActualErrorMessage();
+        Assert.assertEquals(actualAlertMessage,arg0);
 
     }
 }
