@@ -4,12 +4,16 @@ import static com.vytrack.utils.BrowserUtil.*;
 
 
 import com.vytrack.utils.BrowserUtil;
+import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
 import org.junit.Assert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.*;
 
 public abstract class CommonFeaturePage extends BasePage{
@@ -91,10 +95,27 @@ public abstract class CommonFeaturePage extends BasePage{
         List<String> values = values(index);
         globalData.setCreateMapFromLists(keys,values);
         globalData.setObject(globalData.getCreateMapFromLists());
-        BrowserUtil.click(valueElements.get(0));
+        valueElements.getFirst().click();
     }
-
     public String getDefaultVpp(){
         return viewPerPageBtn.getText();
     }
+
+    public void clickElementByIndex(int index) {
+        try {
+
+            List<WebElement> webElements = BrowserUtil.getListOfElementsByXpath(String.format(values_XPATH,index));
+
+            if (index >= 0 && index < webElements.size()) {
+                WebElement elementToClick = webElements.get(index);
+                click(elementToClick);
+                System.out.println("Clicked element at index " + index);
+            } else {
+                System.err.println("Invalid index: " + index);
+            }
+        } catch (Exception e) {
+            System.err.println("Error while clicking element at index " + index + ": " + e.getMessage());
+        }
+    }
+
 }

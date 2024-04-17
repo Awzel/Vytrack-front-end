@@ -1,5 +1,6 @@
 package com.vytrack.pages;
 
+import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.Driver;
 import com.vytrack.utils.GlobalData;
 import org.openqa.selenium.WebElement;
@@ -8,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.vytrack.utils.BrowserUtil.click;
 
 public class GeneralCarInfoPage {
 
@@ -22,6 +25,10 @@ public class GeneralCarInfoPage {
 
     @FindBy(xpath = "//h5[.='General Information']/following-sibling::div/div/div")
     protected List<WebElement> valueElements;
+
+    //@FindBy(xpath = "//a[@class='btn icons-holder-text no-hash']")
+    @FindBy(xpath = "//a[@title='Add an event to this record']")
+    protected WebElement addEventBtn;
 
 
 
@@ -74,5 +81,8 @@ public class GeneralCarInfoPage {
         return isSame;
     }
 
+    public void clickCreateEvent(){
+        click(addEventBtn);
+    }
 
 }

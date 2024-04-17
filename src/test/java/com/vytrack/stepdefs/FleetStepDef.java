@@ -1,8 +1,6 @@
 package com.vytrack.stepdefs;
 
-import com.vytrack.pages.DashboardPage;
-import com.vytrack.pages.GeneralCarInfoPage;
-import com.vytrack.pages.VehiclesPage;
+import com.vytrack.pages.*;
 import com.vytrack.utils.BrowserUtil;
 import com.vytrack.utils.GlobalData;
 import io.cucumber.java.en.Then;
@@ -15,12 +13,14 @@ public class FleetStepDef {
     DashboardPage dashboardPage;
     GeneralCarInfoPage generalCarInfoPage;
     GlobalData globalData;
+    AddEventPage addEventPage;
 
-    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData) {
+    public FleetStepDef(VehiclesPage vehiclesPage, DashboardPage dashboardPage, GeneralCarInfoPage generalCarInfoPage, GlobalData globalData, AddEventPage addEventPage) {
         this.vehiclesPage = vehiclesPage;
         this.dashboardPage = dashboardPage;
         this.generalCarInfoPage = generalCarInfoPage;
         this.globalData = globalData;
+        this.addEventPage = addEventPage;
     }
 
     @When("the user clicks {string} on {string}")
@@ -68,4 +68,19 @@ public class FleetStepDef {
         Assert.assertEquals(actualAlertMessage,expectedAlertMessage);
 
     }
+
+    @Then("user is able to click Add Event button")
+    public void user_is_able_to_click_add_event_button() {
+        generalCarInfoPage.clickCreateEvent();
+    }
+    @Then("user is able to fill the event info and save")
+    public void user_is_able_to_fill_the_event_info_and_save() {
+        addEventPage.eventInfoInputAndSave();
+    }
+    @Then("user is able to see the event created under Activity tab")
+    public void user_is_able_to_see_the_event_created_under_activity_tab() {
+        addEventPage.searchForCreatedEvent();
+        Assert.assertEquals(globalData.getObject(),addEventPage.actualValues());
+    }
+
 }

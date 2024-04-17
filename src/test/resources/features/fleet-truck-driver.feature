@@ -33,3 +33,12 @@ Feature: As a tuck driver I should be able to access Vehicle under fleet module
       When user click to reset button
       Then user should see correct number of vehicles
 
+      @aut_awzal @driversCreateEvent
+      Scenario: drivers can create events
+        Given the user clicks "Vehicles" on "Fleet"
+        Then user is on "Vehicles" page
+        When user selects information in column "1"
+        Then user is able to click Add Event button
+        Then user is able to fill the event info and save
+        Then user is able to see the event created under Activity tab
+
