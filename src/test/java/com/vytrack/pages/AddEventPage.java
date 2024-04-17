@@ -43,8 +43,11 @@ public class AddEventPage {
     @FindBy(xpath = "//div[@class='items list-box list-shaped']//div[@class='extra-info']/div[1]")
     protected List<WebElement> eventToClick;
 
-    @FindBy(xpath = "//div[@class='responsive-block']/div[starts-with(@class,'control-group')]")
-    protected List<WebElement> activityInfos;
+    @FindBy(xpath = "//div[@class='responsive-block']/div[starts-with(@class,'control-group')]/div/div")
+    protected List<WebElement> values;
+
+    @FindBy(xpath = "//div[@class='responsive-block']/div[starts-with(@class,'control-group')]/label")
+    protected List<WebElement> keys;
 
     public void eventInfoInputAndSave(){
 
@@ -75,40 +78,27 @@ public class AddEventPage {
         }
     }
     public Map<String,String> actualValues(){
-        String str = "";
-        for (WebElement each : activityInfos) {
-            String[] arr = each.getText().split("  ");
-            str = each.getText();
-            break;
+        List<String> keysString = new ArrayList<>();
+        List<String> valuesString = new ArrayList<>();
+        Map<String,String> whatever = new LinkedHashMap<>();
+        for (WebElement each : values) {
+            valuesString.add(each.getText());
         }
-        System.out.println(str);
+        for (WebElement each : keys) {
+            keysString.add(each.getText().toLowerCase());
+        }
+        globalData.setCreateMapFromLists(keysString,valuesString);
+        for (String s : globalData.getObject().keySet()) {
+            for (String string : globalData.getCreateMapFromLists().keySet()) {
+                if (s.equals(string)){
+                    whatever.put(string,globalData.getCreateMapFromLists().get(string));
+                }
+            }
+        }
 
-        return null;
+        return whatever;
     }
 
-    public Map<String, String> getEventInfoFromActivityTab() {
 
-
-        Map<String, String> eventInfo = new LinkedHashMap<>();
-
-//        List<String> actualEventInfoKeys = new ArrayList<>();
-//        for (WebElement each : activityInfoKeys) {
-//            actualEventInfoKeys.add(each.getText());
-//        }
-//
-//        List<String> actualEventInfoValues = new ArrayList<>();
-//        for (WebElement each : activityInfoValues) {
-//            actualEventInfoValues.add(each.getText());
-//        }
-//
-//        System.out.println(actualEventInfoKeys);
-//        System.out.println(actualEventInfoValues);
-//
-//        for (int i = 0; i < actualEventInfoKeys.size(); i++) {
-//            eventInfo.put(actualEventInfoKeys.get(i), actualEventInfoValues.get(i));
-//        }
-
-        return eventInfo;
-    }
 
 }

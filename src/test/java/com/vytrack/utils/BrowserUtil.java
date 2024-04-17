@@ -41,7 +41,7 @@ public class BrowserUtil {
     }
 
     public static void titleTobe(String title){
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),Duration.ofSeconds(10));
         wait.until(ExpectedConditions.titleIs(title));
     }
 
